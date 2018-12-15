@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="tableViewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GuidesViewController">
+   <children>
+      <TableView fx:id="tableView" onMouseClicked="#selectGuide" prefHeight="450.0" prefWidth="800.0">
+        <columns>
+          <TableColumn fx:id="personnrColumn" prefWidth="160.0" text="Personnr" />
+          <TableColumn fx:id="fNamnColumn" prefWidth="160.0" text="Förnamn" />
+            <TableColumn fx:id="eNamnColumn" prefWidth="160.0" text="Efternamn" />
+            <TableColumn fx:id="telefonnrColumn" prefWidth="160.0" text="Telefonnr" />
+            <TableColumn fx:id="epostColumn" prefWidth="160.0" text="Epost" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

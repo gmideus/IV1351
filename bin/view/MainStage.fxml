@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainStageController">
+   <children>
+      <AnchorPane fx:id="headerPane" prefHeight="48.0" prefWidth="800.0" style="-fx-background-color: #0077CC;">
+         <children>
+            <Label fx:id="titleLabel" layoutX="7.0" layoutY="7.0" text="Konstmuseum" textFill="WHITE">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="exitLabel" layoutX="770.0" layoutY="3.0" onMouseClicked="#handleClose" text="X">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="bodyPane" layoutX="-1.0" layoutY="48.0" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #E6E6E6;" />
+   </children>
+</AnchorPane>
