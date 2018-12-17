@@ -20,7 +20,7 @@ public class Guide {
         //fill showExperties from database
         addLanguage("spanska"); //remove
         addLanguage("svenska"); //remove
-        addShow("The Opening");
+        addShow("The Opening", 1);
     }
     
     
@@ -30,8 +30,8 @@ public class Guide {
         languages.add(languageDTO);
     }
     
-    public void addShow(String show) {
-        ShowExpertiesDTO showExpertiesDTO = new ShowExpertiesDTO(show);
+    public void addShow(String show, int id) {
+        ShowExpertiesDTO showExpertiesDTO = new ShowExpertiesDTO(show, id);
         showExperties.add(showExpertiesDTO);
     }
     
