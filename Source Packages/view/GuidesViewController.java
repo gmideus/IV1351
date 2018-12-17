@@ -46,7 +46,7 @@ public class GuidesViewController implements Initializable{
     private TableColumn<GuideDTO, String> epostColumn;
     
     @FXML
-    private void selectGuide(MouseEvent event) {
+    private void selectGuide(MouseEvent event) throws Exception{
         if(!MouseHandler.isDoubleClick(event))
             return;
         
@@ -65,7 +65,7 @@ public class GuidesViewController implements Initializable{
             node = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            return; //Så länge..
+            return; //
         }
         
         GuideController guideController = loader.getController();
@@ -77,7 +77,11 @@ public class GuidesViewController implements Initializable{
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        setGuides();
+        try{
+            setGuides();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         personnrColumn.setCellValueFactory(new PropertyValueFactory<>("personnr"));
         fNamnColumn.setCellValueFactory(new PropertyValueFactory<>("fnamn"));
         eNamnColumn.setCellValueFactory(new PropertyValueFactory<>("enamn"));
@@ -87,7 +91,7 @@ public class GuidesViewController implements Initializable{
         tableView.setItems(guides);
     }
     
-    private void setGuides() {
+    private void setGuides() throws Exception{
         Controller controller = Controller.getController();
         List<GuideDTO> guidesDTO = controller.getGuides();
         this.guides = FXCollections.observableArrayList(guidesDTO);

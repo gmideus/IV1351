@@ -5,22 +5,24 @@ import java.util.List;
 
 import dto.GuideDTO;
 import dto.LanguageDTO;
-import dto.ShowExpertiesDTO;
+import dto.ShowDTO;
+import integration.DBHandler;
 
 public class Guide {
     private GuideDTO guideDTO;
     private List<LanguageDTO> languages;
-    private List<ShowExpertiesDTO> showExperties; //utst‰llningskompetens. kanske skapa object med id...
+    private List<ShowDTO> showExperties; //utst√§llningskompetens. kanske skapa object med id...
     
-    public Guide (GuideDTO guideDTO) {
+    public Guide (GuideDTO guideDTO) throws Exception{
         this.guideDTO = guideDTO;
-        this.languages = new ArrayList<LanguageDTO>();
-        this.showExperties = new ArrayList<ShowExpertiesDTO>();
+        DBHandler handler = DBHandler.getDbhandler();
+        this.languages = handler.getGuideLanguages(guideDTO);
+        this.showExperties = handler.getGuideShows(guideDTO);
         //fill languages from database
         //fill showExperties from database
-        addLanguage("spanska"); //remove
-        addLanguage("svenska"); //remove
-        addShow("The Opening");
+        //addLanguage("spanska"); //remove
+        //addLanguage("svenska"); //remove
+        //addShow("The Opening", 1);
     }
     
     
@@ -30,16 +32,16 @@ public class Guide {
         languages.add(languageDTO);
     }
     
-    public void addShow(String show) {
-        ShowExpertiesDTO showExpertiesDTO = new ShowExpertiesDTO(show);
-        showExperties.add(showExpertiesDTO);
+    public void addShow(String show, int id) {
+        ShowDTO showDTO = new ShowDTO(show, id, "start", "slut");
+        showExperties.add(showDTO);
     }
     
     public List<LanguageDTO> getLanguages(){
         return this.languages;
     }
     
-    public List<ShowExpertiesDTO> getShowExperties(){
+    public List<ShowDTO> getShowExperties(){
         return this.showExperties;
     }
     

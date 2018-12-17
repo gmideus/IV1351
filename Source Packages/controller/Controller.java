@@ -17,12 +17,13 @@ public class Controller {
         return Controller.CONTROLLER;
     }
     
-    public List<GuideDTO> getGuides(){
+    public List<GuideDTO> getGuides() throws Exception{
         Guides guides = new Guides();
         return guides.getGuides();
     }
     
-    public Guide getGuide(GuideDTO guideDTO) {
+    public Guide getGuide(GuideDTO guideDTO)throws Exception {
+
         Guide guide = new Guide(guideDTO);
         return guide;
     }

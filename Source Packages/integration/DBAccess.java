@@ -11,8 +11,8 @@ public class DBAccess {
     private Connection connection;
     private String URL = "jdbc:mysql:///iv1351?autoReconnect=true&useSSL=false&serverTimezone=UTC";
     private String driver = "com.mysql.cj.jdbc.Driver";
-    private String userID = "root";
-    private String password = "root";
+    private String userID = "iv1351";
+    private String password = "password";
 
     public static DBAccess getDBAccess() {
         return DBAccess.DBACCESS;
@@ -33,14 +33,14 @@ public class DBAccess {
         DBAccess db = DBAccess.getDBAccess();
         db.connect();
         Connection connection = db.getDBConnection();
-        String query = "SELECT marke FROM bil GROUP BY marke";
+        String query = "SELECT fnamn FROM guide";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
 
-        System.out.println("Alla bilm‰rken i databasen: ");
+        System.out.println("Alla bilm√§rken i databasen: ");
 
         while (rs.next()) {
-            System.out.println(rs.getString("marke"));
+            System.out.println(rs.getString("fnamn"));
         }
 
         stmt.close();

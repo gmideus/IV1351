@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import dto.GuideDTO;
 import dto.LanguageDTO;
-import dto.ShowExpertiesDTO;
+import dto.ShowDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,31 +28,31 @@ import util.AlertMaker;
 
 public class GuideController implements Initializable{
     private Guide guide;
-    private ObservableList<LanguageDTO> languages; 
-    private ObservableList<ShowExpertiesDTO> showExperties;
-    
-    @FXML 
+    private ObservableList<LanguageDTO> languages;
+    private ObservableList<ShowDTO> showExperties;
+
+    @FXML
     private ComboBox<LanguageDTO> languageCombo;
-    @FXML 
-    private ComboBox<ShowExpertiesDTO> showCombo;
-    
-    
-    
-    
-    
+    @FXML
+    private ComboBox<ShowDTO> showCombo;
+
+
+
+
+
     @FXML
     private AnchorPane anchorPane;
-    
+
     @FXML
     private TableView<LanguageDTO> languagesTableView;
     @FXML
-    private TableView<ShowExpertiesDTO> showExpertiesTableView;
-    
+    private TableView<ShowDTO> showExpertiesTableView;
+
     @FXML
     private TableColumn<LanguageDTO, String> languageColumn;
     @FXML
-    private TableColumn<ShowExpertiesDTO, String> showColumn;
-    
+    private TableColumn<ShowDTO, String> showColumn;
+
     @FXML
     private Label fNamn;
     @FXML
@@ -63,7 +63,7 @@ public class GuideController implements Initializable{
     private Label telefonnr;
     @FXML
     private Label epost;
-    
+
     @FXML
     private void previousPage(ActionEvent event) {
         Node node;
@@ -74,24 +74,24 @@ public class GuideController implements Initializable{
             e.printStackTrace();
             return;
         }
-        anchorPane.getChildren().setAll(node);  
+        anchorPane.getChildren().setAll(node);
     }
-    
-    
-    
+
+
+
     @FXML
     private void addLanguage(ActionEvent event) {
-        
+
     }
-    
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         showColumn.setCellValueFactory(new PropertyValueFactory<>("showName"));
         languagesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        
+
     }
-    
+
     void setSelectedGuide(Guide guide) {
         this.guide = guide;
         GuideDTO guideDTO = guide.getGuideDTO();
@@ -105,18 +105,18 @@ public class GuideController implements Initializable{
         languagesTableView.setItems(this.languages);
         showExpertiesTableView.setItems(this.showExperties);
         this.languageCombo.setItems(this.languages); //REMOVE
-        
+
     }
-    
+
     private void setLanguages() {
         List<LanguageDTO> languages = guide.getLanguages();
-        this.languages = FXCollections.observableArrayList(languages);         
+        this.languages = FXCollections.observableArrayList(languages);
     }
-    
+
     private void setShowExperties() {
-        List<ShowExpertiesDTO> showExperties = guide.getShowExperties();
+        List<ShowDTO> showExperties = guide.getShowExperties();
         this.showExperties = FXCollections.observableArrayList(showExperties);
     }
 
-    
+
 }
