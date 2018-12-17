@@ -5,17 +5,17 @@ import java.util.List;
 
 import dto.GuideDTO;
 import dto.LanguageDTO;
-import dto.ShowExpertiesDTO;
+import dto.ShowDTO;
 
 public class Guide {
     private GuideDTO guideDTO;
     private List<LanguageDTO> languages;
-    private List<ShowExpertiesDTO> showExperties; //utställningskompetens. kanske skapa object med id...
+    private List<ShowDTO> showExperties; //utställningskompetens. kanske skapa object med id...
     
     public Guide (GuideDTO guideDTO) {
         this.guideDTO = guideDTO;
         this.languages = new ArrayList<LanguageDTO>();
-        this.showExperties = new ArrayList<ShowExpertiesDTO>();
+        this.showExperties = new ArrayList<ShowDTO>();
         //fill languages from database
         //fill showExperties from database
         addLanguage("spanska"); //remove
@@ -31,15 +31,15 @@ public class Guide {
     }
     
     public void addShow(String show, int id) {
-        ShowExpertiesDTO showExpertiesDTO = new ShowExpertiesDTO(show, id);
-        showExperties.add(showExpertiesDTO);
+        ShowDTO showDTO = new ShowDTO(show, id, "start", "slut");
+        showExperties.add(showDTO);
     }
     
     public List<LanguageDTO> getLanguages(){
         return this.languages;
     }
     
-    public List<ShowExpertiesDTO> getShowExperties(){
+    public List<ShowDTO> getShowExperties(){
         return this.showExperties;
     }
     
