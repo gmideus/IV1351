@@ -22,7 +22,7 @@ import model.Guide;
 import util.MouseHandler;
 
 public class GuidesViewController implements Initializable{
-    private ObservableList<GuideDTO> guides = FXCollections.observableArrayList();
+    private ObservableList<GuideDTO> guides; //= FXCollections.observableArrayList();
     
     @FXML
     private AnchorPane tableViewPane;
@@ -90,8 +90,11 @@ public class GuidesViewController implements Initializable{
     private void setGuides() {
         Controller controller = Controller.getController();
         List<GuideDTO> guidesDTO = controller.getGuides();
+        this.guides = FXCollections.observableArrayList(guidesDTO);
+        /*
         for (GuideDTO guide : guidesDTO)
             this.guides.add(guide);
+            */
     }
 
 }
