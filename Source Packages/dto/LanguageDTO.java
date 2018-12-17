@@ -7,6 +7,10 @@ public class LanguageDTO {
         this.language = language;
     }
     
+    @Override
+    public String toString() {
+        return this.language;
+    }
     public String getLanguage() {
         return this.language;
     }

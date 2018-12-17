@@ -6,21 +6,23 @@ import java.util.List;
 import dto.GuideDTO;
 import dto.LanguageDTO;
 import dto.ShowDTO;
+import integration.DBHandler;
 
 public class Guide {
     private GuideDTO guideDTO;
     private List<LanguageDTO> languages;
     private List<ShowDTO> showExperties; //utställningskompetens. kanske skapa object med id...
     
-    public Guide (GuideDTO guideDTO) {
+    public Guide (GuideDTO guideDTO) throws Exception{
         this.guideDTO = guideDTO;
-        this.languages = new ArrayList<LanguageDTO>();
-        this.showExperties = new ArrayList<ShowDTO>();
+        DBHandler handler = DBHandler.getDbhandler();
+        this.languages = handler.getGuideLanguages(guideDTO);
+        this.showExperties = handler.getGuideShows(guideDTO);
         //fill languages from database
         //fill showExperties from database
-        addLanguage("spanska"); //remove
-        addLanguage("svenska"); //remove
-        addShow("The Opening", 1);
+        //addLanguage("spanska"); //remove
+        //addLanguage("svenska"); //remove
+        //addShow("The Opening", 1);
     }
     
     

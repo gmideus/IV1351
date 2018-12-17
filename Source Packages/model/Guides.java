@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.GuideDTO;
+import integration.DBHandler;
 
 public class Guides {
     private List<GuideDTO> guides;
     
-    public Guides() {
-        this.guides = new ArrayList<GuideDTO>();
-        GuideDTO kalle = new GuideDTO("Kalle", "Anka", "123", "112", "mail@hotmail.com");
-        guides.add(kalle);
+    public Guides() throws Exception {
+        DBHandler handler = DBHandler.getDbhandler();
+        this.guides = handler.getGuides();
     }
     
     public List<GuideDTO> getGuides(){
