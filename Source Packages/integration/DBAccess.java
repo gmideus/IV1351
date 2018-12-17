@@ -37,7 +37,7 @@ public class DBAccess {
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(query);
 
-        System.out.println("Alla bilm‰rken i databasen: ");
+        System.out.println("Alla bilm√§rken i databasen: ");
 
         while (rs.next()) {
             System.out.println(rs.getString("marke"));

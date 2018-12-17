@@ -10,7 +10,7 @@ import dto.ShowExpertiesDTO;
 public class Guide {
     private GuideDTO guideDTO;
     private List<LanguageDTO> languages;
-    private List<ShowExpertiesDTO> showExperties; //utst‰llningskompetens. kanske skapa object med id...
+    private List<ShowExpertiesDTO> showExperties; //utst√§llningskompetens. kanske skapa object med id...
     
     public Guide (GuideDTO guideDTO) {
         this.guideDTO = guideDTO;

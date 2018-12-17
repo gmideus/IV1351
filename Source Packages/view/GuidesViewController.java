@@ -65,7 +65,7 @@ public class GuidesViewController implements Initializable{
             node = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
-            return; //Så länge..
+            return; //
         }
         
         GuideController guideController = loader.getController();
