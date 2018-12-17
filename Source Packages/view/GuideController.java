@@ -15,18 +15,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Guide;
+import util.AlertMaker;
 
 public class GuideController implements Initializable{
     private Guide guide;
-    private ObservableList<LanguageDTO> languages; //= FXCollections.observableArrayList();
-    private ObservableList<ShowExpertiesDTO> showExperties = FXCollections.observableArrayList();
+    private ObservableList<LanguageDTO> languages; 
+    private ObservableList<ShowExpertiesDTO> showExperties;
+    
+    @FXML 
+    private ComboBox<LanguageDTO> languageCombo;
+    @FXML 
+    private ComboBox<ShowExpertiesDTO> showCombo;
+    
+    
+    
+    
     
     @FXML
     private AnchorPane anchorPane;
@@ -37,9 +49,9 @@ public class GuideController implements Initializable{
     private TableView<ShowExpertiesDTO> showExpertiesTableView;
     
     @FXML
-    private TableColumn<LanguageDTO, String> languagesColumn;
+    private TableColumn<LanguageDTO, String> languageColumn;
     @FXML
-    private TableColumn<ShowExpertiesDTO, String> showExpertiesColumn;
+    private TableColumn<ShowExpertiesDTO, String> showColumn;
     
     @FXML
     private Label fNamn;
@@ -52,7 +64,6 @@ public class GuideController implements Initializable{
     @FXML
     private Label epost;
     
-    
     @FXML
     private void previousPage(ActionEvent event) {
         Node node;
@@ -63,14 +74,21 @@ public class GuideController implements Initializable{
             e.printStackTrace();
             return;
         }
-        anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().setAll(node);  
+    }
+    
+    
+    
+    @FXML
+    private void addLanguage(ActionEvent event) {
         
     }
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        languagesColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
-        showExpertiesColumn.setCellValueFactory(new PropertyValueFactory<>("showName"));
+        languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
+        showColumn.setCellValueFactory(new PropertyValueFactory<>("showName"));
+        languagesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         
     }
     
@@ -86,16 +104,13 @@ public class GuideController implements Initializable{
         setShowExperties();
         languagesTableView.setItems(this.languages);
         showExpertiesTableView.setItems(this.showExperties);
-        //fill experties
+        this.languageCombo.setItems(this.languages); //REMOVE
+        
     }
     
     private void setLanguages() {
         List<LanguageDTO> languages = guide.getLanguages();
-        this.languages = FXCollections.observableArrayList(languages);
-        /*
-        for(LanguageDTO language : languages)
-            this.languages.add(language);
-            */
+        this.languages = FXCollections.observableArrayList(languages);         
     }
     
     private void setShowExperties() {
