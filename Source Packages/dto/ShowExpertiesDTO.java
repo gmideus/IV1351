@@ -1,13 +1,13 @@
 package dto;
 
 public class ShowExpertiesDTO {
-    private String showExperties;
+    private String showName;
 
-    public ShowExpertiesDTO(String show) {
-        this.showExperties = show;
+    public ShowExpertiesDTO(String showName) {
+        this.showName = showName;
     }
     
-    public String getShowExperties() {
-        return this.showExperties;
+    public String getShowName() {
+        return this.showName;
     }
 }

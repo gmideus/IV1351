@@ -18,8 +18,9 @@ public class Guide {
         this.showExperties = new ArrayList<ShowExpertiesDTO>();
         //fill languages from database
         //fill showExperties from database
-        addLanguage("Spanska"); //remove
-        addLanguage("Svenska"); //remove
+        addLanguage("spanska"); //remove
+        addLanguage("svenska"); //remove
+        addShow("The Opening");
     }
     
     
@@ -29,12 +30,17 @@ public class Guide {
         languages.add(languageDTO);
     }
     
-    public void addShow() {
-        
+    public void addShow(String show) {
+        ShowExpertiesDTO showExpertiesDTO = new ShowExpertiesDTO(show);
+        showExperties.add(showExpertiesDTO);
     }
     
     public List<LanguageDTO> getLanguages(){
         return this.languages;
+    }
+    
+    public List<ShowExpertiesDTO> getShowExperties(){
+        return this.showExperties;
     }
     
     public GuideDTO getGuideDTO() {

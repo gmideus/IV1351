@@ -66,9 +66,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView layoutX="550.0" prefHeight="450.0" prefWidth="238.0">
+      <TableView fx:id="showExpertiesTableView" layoutX="550.0" prefHeight="450.0" prefWidth="238.0">
         <columns>
-          <TableColumn prefWidth="251.199951171875" text="Utställningskompetens" />
+          <TableColumn fx:id="showExpertiesColumn" prefWidth="251.199951171875" text="Utställningskompetens" />
         </columns>
       </TableView>
       <TextField layoutX="8.0" layoutY="353.0" prefHeight="26.0" prefWidth="128.0" />

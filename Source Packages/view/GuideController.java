@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import dto.GuideDTO;
 import dto.LanguageDTO;
+import dto.ShowExpertiesDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,8 +25,8 @@ import model.Guide;
 
 public class GuideController implements Initializable{
     private Guide guide;
-    private ObservableList<LanguageDTO> languages = FXCollections.observableArrayList();
-    private ObservableList<String> showExperties = FXCollections.observableArrayList();
+    private ObservableList<LanguageDTO> languages; //= FXCollections.observableArrayList();
+    private ObservableList<ShowExpertiesDTO> showExperties = FXCollections.observableArrayList();
     
     @FXML
     private AnchorPane anchorPane;
@@ -32,10 +34,12 @@ public class GuideController implements Initializable{
     @FXML
     private TableView<LanguageDTO> languagesTableView;
     @FXML
-    private TableView showExpertiesTableView;
+    private TableView<ShowExpertiesDTO> showExpertiesTableView;
     
     @FXML
     private TableColumn<LanguageDTO, String> languagesColumn;
+    @FXML
+    private TableColumn<ShowExpertiesDTO, String> showExpertiesColumn;
     
     @FXML
     private Label fNamn;
@@ -66,6 +70,7 @@ public class GuideController implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         languagesColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
+        showExpertiesColumn.setCellValueFactory(new PropertyValueFactory<>("showName"));
         
     }
     
@@ -78,14 +83,24 @@ public class GuideController implements Initializable{
         telefonnr.setText(guideDTO.getTelefonnr());
         epost.setText(guideDTO.getEpost());
         setLanguages();
+        setShowExperties();
         languagesTableView.setItems(this.languages);
+        showExpertiesTableView.setItems(this.showExperties);
         //fill experties
     }
     
     private void setLanguages() {
         List<LanguageDTO> languages = guide.getLanguages();
+        this.languages = FXCollections.observableArrayList(languages);
+        /*
         for(LanguageDTO language : languages)
             this.languages.add(language);
+            */
+    }
+    
+    private void setShowExperties() {
+        List<ShowExpertiesDTO> showExperties = guide.getShowExperties();
+        this.showExperties = FXCollections.observableArrayList(showExperties);
     }
 
     
