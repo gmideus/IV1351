@@ -178,8 +178,9 @@ public class DBHandler {
         String query = "select count(*) as Turer from tur where guide = ? and språk = ?";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, g.getPersonnr());
-        stmt.setString(1, l.getLanguage());
+        stmt.setString(2, l.getLanguage());
         ResultSet rs = stmt.executeQuery();
+        rs.next();
         if(rs.getInt("Turer") == 0)
             return true;
         else
@@ -208,8 +209,9 @@ public class DBHandler {
         String query = "select count(*) as Turer from tur where guide = ? and utställning = ?";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, g.getPersonnr());
-        stmt.setInt(1, s.getID());
+        stmt.setInt(2, s.getID());
         ResultSet rs = stmt.executeQuery();
+        rs.next();
         if(rs.getInt("Turer") == 0)
             return true;
         else

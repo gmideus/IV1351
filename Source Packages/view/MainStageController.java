@@ -29,7 +29,7 @@ public class MainStageController implements Initializable {
             node = (Node)FXMLLoader.load(getClass().getResource("GuidesView.fxml"));
             bodyPane.getChildren().setAll(node);
         } catch (IOException e) {
-            System.err.println("Couldn't locate GuideView.fxml");
+            System.err.println("Couldn't locate GuidesView.fxml");
             e.printStackTrace();
         }
         
