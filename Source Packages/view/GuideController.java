@@ -92,7 +92,7 @@ public class GuideController implements Initializable{
 
     }
 
-    void setSelectedGuide(Guide guide) {
+    void setSelectedGuide(Guide guide) throws Exception{
         this.guide = guide;
         GuideDTO guideDTO = guide.getGuideDTO();
         fNamn.setText(guideDTO.getFnamn());
@@ -108,13 +108,13 @@ public class GuideController implements Initializable{
 
     }
 
-    private void setLanguages() {
+    private void setLanguages() throws Exception{
         List<LanguageDTO> languages = guide.getLanguages();
         this.languages = FXCollections.observableArrayList(languages);
     }
 
-    private void setShowExperties() {
-        List<ShowDTO> showExperties = guide.getShowExperties();
+    private void setShowExperties() throws Exception{
+        List<ShowDTO> showExperties = guide.getShows();
         this.showExperties = FXCollections.observableArrayList(showExperties);
     }
 

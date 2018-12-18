@@ -10,14 +10,10 @@ import integration.DBHandler;
 
 public class Guide {
     private GuideDTO guideDTO;
-    private List<LanguageDTO> languages;
-    private List<ShowDTO> showExperties; //utställningskompetens. kanske skapa object med id...
+
     
     public Guide (GuideDTO guideDTO) throws Exception{
         this.guideDTO = guideDTO;
-        DBHandler handler = DBHandler.getDbhandler();
-        this.languages = handler.getGuideLanguages(guideDTO);
-        this.showExperties = handler.getGuideShows(guideDTO);
         //fill languages from database
         //fill showExperties from database
         //addLanguage("spanska"); //remove
@@ -27,22 +23,34 @@ public class Guide {
     
     
     
-    public void addLanguage(String language) {
-        LanguageDTO languageDTO = new LanguageDTO(language);
-        languages.add(languageDTO);
+    public void addLanguage(LanguageDTO l) throws Exception{
+        DBHandler handler = DBHandler.getDbhandler();
+        handler.addGuideLanguage(this.guideDTO, l);
     }
     
-    public void addShow(String show, int id) {
-        ShowDTO showDTO = new ShowDTO(show, id, "start", "slut");
-        showExperties.add(showDTO);
+    public void addShow(ShowDTO s) throws Exception{
+        DBHandler handler = DBHandler.getDbhandler();
+        handler.addGuideShow(this.guideDTO, s);
     }
     
-    public List<LanguageDTO> getLanguages(){
-        return this.languages;
+    public List<LanguageDTO> getLanguages() throws Exception{
+        DBHandler handler = DBHandler.getDbhandler();
+        return handler.getGuideLanguages(this.guideDTO);
     }
     
-    public List<ShowDTO> getShowExperties(){
-        return this.showExperties;
+    public List<ShowDTO> getShows()throws Exception{
+        DBHandler handler = DBHandler.getDbhandler();
+        return handler.getGuideShows(this.guideDTO);
+    }
+
+    public List<LanguageDTO> getPotentialLanguages() throws Exception{
+        DBHandler handler = DBHandler.getDbhandler();
+        return handler.getPotentialLanguages(this.guideDTO);
+    }
+
+    public List<ShowDTO> getPotentialShows()throws Exception{
+        DBHandler handler = DBHandler.getDbhandler();
+        return handler.getPotentialShows(this.guideDTO);
     }
     
     public GuideDTO getGuideDTO() {

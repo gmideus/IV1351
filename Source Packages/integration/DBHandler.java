@@ -88,9 +88,35 @@ public class DBHandler {
         return result;
     }
 
+    public ArrayList<LanguageDTO> getPotentialLanguages(GuideDTO g)throws Exception{
+        Connection con = db.getDBConnection();
+        String query = "Select namn from språk where namn not in (select språk from skråkkunskap where guide = ?)";
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, g.getPersonnr());
+        ResultSet rs = stmt.executeQuery();
+        ArrayList<LanguageDTO> result = new ArrayList<>();
+        while(rs.next()){
+            result.add(new LanguageDTO(rs.getString("språk")));
+        }
+        return result;
+    }
+
     public ArrayList<ShowDTO> getGuideShows(GuideDTO g)throws Exception{
         Connection con = db.getDBConnection();
         String query = "select namn, id, startdatum, slutdatum from utställning where id in (select utställning from utställningskompetens where guide = ?);";
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, g.getPersonnr());
+        ResultSet rs = stmt.executeQuery();
+        ArrayList<ShowDTO> result = new ArrayList<>();
+        while(rs.next()){
+            result.add(new ShowDTO(rs.getString("namn"), rs.getInt("id"), rs.getString("startdatum"), rs.getString("slutdatum")));
+        }
+        return result;
+    }
+
+    public ArrayList<ShowDTO> getPotentialShows(GuideDTO g)throws Exception{
+        Connection con = db.getDBConnection();
+        String query = "select namn, id, startdatum, slutdatum from utställning where id not in (select utställning from utställningskompetens where guide = ?);";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, g.getPersonnr());
         ResultSet rs = stmt.executeQuery();
@@ -111,6 +137,7 @@ public class DBHandler {
         stmt.close();
         con.commit();
     }
+
 
     public void addGuideShow(GuideDTO g, ShowDTO s) throws Exception{
         Connection con = db.getDBConnection();

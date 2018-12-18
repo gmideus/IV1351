@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 
 import dto.GuideDTO;
+import dto.LanguageDTO;
+import integration.DBHandler;
 import model.Guide;
 import model.Guides;
 
@@ -26,5 +28,9 @@ public class Controller {
 
         Guide guide = new Guide(guideDTO);
         return guide;
+    }
+
+    public void addGuideLanguages(GuideDTO g, LanguageDTO l){
+
     }
 }
