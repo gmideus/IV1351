@@ -126,7 +126,7 @@ public class GuideController implements Initializable{
         
         if(guide.addShow(selectedShow)) {
             shows.add(selectedShow);
-            potentialShows.remove(selectedShow); 
+            potentialShows.remove(selectedShow);
         } else {
             //TODO alert nånting
         }    
