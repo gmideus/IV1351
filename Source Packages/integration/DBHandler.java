@@ -173,6 +173,21 @@ public class DBHandler {
             return false;
     }
 
+    public boolean languageRemovable(GuideDTO g, LanguageDTO l) throws Exception{
+        Connection con = db.getDBConnection();
+        String query = "select count(*) as Turer from tur where guide = ? and språk = ?";
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, g.getPersonnr());
+        stmt.setString(2, l.getLanguage());
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        if(rs.getInt("Turer") == 0)
+            return true;
+        else
+            return false;
+
+    }
+
     public boolean removeGuideShow(GuideDTO g, ShowDTO s) throws Exception{
         Connection con = db.getDBConnection();
         String query = "delete from utställningskompetens where guide = ? and utställning = ?";
@@ -186,6 +201,22 @@ public class DBHandler {
             return true;
         else
             return false;
+    }
+
+
+    public boolean showRemovable(GuideDTO g, ShowDTO s) throws Exception{
+        Connection con = db.getDBConnection();
+        String query = "select count(*) as Turer from tur where guide = ? and utställning = ?";
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setString(1, g.getPersonnr());
+        stmt.setInt(2, s.getID());
+        ResultSet rs = stmt.executeQuery();
+        rs.next();
+        if(rs.getInt("Turer") == 0)
+            return true;
+        else
+            return false;
+
     }
 
 }
