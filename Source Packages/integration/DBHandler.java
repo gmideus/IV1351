@@ -90,13 +90,13 @@ public class DBHandler {
 
     public ArrayList<LanguageDTO> getPotentialLanguages(GuideDTO g)throws Exception{
         Connection con = db.getDBConnection();
-        String query = "Select namn from språk where namn not in (select språk from skråkkunskap where guide = ?)";
+        String query = "Select namn from språk where namn not in (select språk from språkkunskap where guide = ?)";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, g.getPersonnr());
         ResultSet rs = stmt.executeQuery();
         ArrayList<LanguageDTO> result = new ArrayList<>();
         while(rs.next()){
-            result.add(new LanguageDTO(rs.getString("språk")));
+            result.add(new LanguageDTO(rs.getString("namn")));
         }
         return result;
     }

@@ -13,6 +13,10 @@ public class ShowDTO {
         this.endDate = endDate;
     }
     
+    public String toString() {
+        return this.showName + " | " + this.startDate + " | " + this.endDate;
+    }
+    
     public String getShowName() {
         return this.showName;
     }

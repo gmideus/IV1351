@@ -78,7 +78,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button layoutX="565.0" layoutY="183.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="97.0" text="Lägg till" />
+      <Button layoutX="565.0" layoutY="183.0" mnemonicParsing="false" onAction="#addLanguage" prefHeight="26.0" prefWidth="97.0" text="Lägg till" />
       <Button layoutX="293.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Lägg till" />
       <Text layoutX="22.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lägg till kompetens:">
          <font>

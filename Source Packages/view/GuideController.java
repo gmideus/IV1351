@@ -30,6 +30,8 @@ public class GuideController implements Initializable{
     private Guide guide;
     private ObservableList<LanguageDTO> languages;
     private ObservableList<ShowDTO> shows;
+    private ObservableList<LanguageDTO> potentialLanguages;
+    private ObservableList<ShowDTO> potentialShows;
 
     @FXML
     private ComboBox<LanguageDTO> languageCombo;
@@ -80,7 +82,16 @@ public class GuideController implements Initializable{
 
 
     @FXML
-    private void addLanguage(ActionEvent event) {
+    private void addLanguage(ActionEvent event) throws Exception {
+        LanguageDTO selectedLanguage = languageCombo.getSelectionModel().getSelectedItem();
+        if(selectedLanguage == null) {
+            //error alert
+            System.out.println("Nej");
+            return;
+        }
+        
+        
+        
         
     }
 
@@ -101,22 +112,35 @@ public class GuideController implements Initializable{
         personnr.setText(guideDTO.getPersonnr());
         telefonnr.setText(guideDTO.getTelefonnr());
         epost.setText(guideDTO.getEpost());
-        setLanguages();
-        setShows();
+        displayLanguages();
+        displayShows();
+        displayPotentialLanguages();
+        displayPotentialShows();
     }
 
-    private void setLanguages() throws Exception{
+    private void displayLanguages() throws Exception{
         List<LanguageDTO> languages = guide.getLanguages();
         this.languages = FXCollections.observableArrayList(languages);
         languagesTableView.setItems(this.languages);
     }
 
 
-    private void setShows() throws Exception{
+    private void displayShows() throws Exception{
         List<ShowDTO> showExperties = guide.getShows();
         this.shows = FXCollections.observableArrayList(showExperties);
         showsTableView.setItems(this.shows);
     }
 
+    private void displayPotentialLanguages() throws Exception {
+        List<LanguageDTO> potentialLanguages = guide.getPotentialLanguages();
+        this.potentialLanguages = FXCollections.observableArrayList(potentialLanguages);
+        languageCombo.setItems(this.potentialLanguages);
+    }
+    
+    private void displayPotentialShows() throws Exception {
+        List<ShowDTO> potentialShows = guide.getPotentialShows();
+        this.potentialShows = FXCollections.observableArrayList(potentialShows);
+        showCombo.setItems(this.potentialShows);
+    }
 
 }
