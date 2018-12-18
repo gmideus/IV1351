@@ -66,11 +66,11 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="showExpertiesTableView" layoutX="13.0" layoutY="241.0" prefHeight="135.0" prefWidth="467.0">
+      <TableView fx:id="showsTableView" layoutX="13.0" layoutY="241.0" prefHeight="135.0" prefWidth="467.0">
         <columns>
           <TableColumn fx:id="showColumn" prefWidth="187.20001220703125" text="Utställning" />
-            <TableColumn prefWidth="137.60003662109375" text="Startdatum" />
-            <TableColumn prefWidth="141.5999755859375" text="Slutdatum" />
+            <TableColumn fx:id="startDateColumn" prefWidth="137.60003662109375" text="Startdatum" />
+            <TableColumn fx:id="endDateColumn" prefWidth="141.5999755859375" text="Slutdatum" />
         </columns>
       </TableView>
       <Text layoutX="408.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lägg till språk:">
