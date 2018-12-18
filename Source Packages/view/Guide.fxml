@@ -79,7 +79,7 @@
          </font>
       </Text>
       <Button layoutX="565.0" layoutY="183.0" mnemonicParsing="false" onAction="#addLanguage" prefHeight="26.0" prefWidth="97.0" text="Lägg till" />
-      <Button layoutX="293.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="128.0" text="Lägg till" />
+      <Button layoutX="293.0" layoutY="400.0" mnemonicParsing="false" onAction="#addShow" prefHeight="26.0" prefWidth="128.0" text="Lägg till" />
       <Text layoutX="22.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lägg till kompetens:">
          <font>
             <Font size="14.0" />
@@ -97,7 +97,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button layoutX="671.0" layoutY="183.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" text="Ta bort" />
-      <Button layoutX="427.0" layoutY="401.0" mnemonicParsing="false" text="Ta bort" />
+      <Button layoutX="671.0" layoutY="183.0" mnemonicParsing="false" onAction="#removeLanguage" prefHeight="26.0" prefWidth="74.0" text="Ta bort" />
+      <Button layoutX="427.0" layoutY="401.0" mnemonicParsing="false" onAction="#removeShow" text="Ta bort" />
    </children>
 </AnchorPane>

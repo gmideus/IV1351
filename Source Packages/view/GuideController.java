@@ -90,9 +90,63 @@ public class GuideController implements Initializable{
             return;
         }
         
+        if(guide.addLanguage(selectedLanguage)) {
+            languages.add(selectedLanguage);
+            potentialLanguages.remove(selectedLanguage);
+        } else {
+            //TODO alert nånting
+        }    
+    }
+    
+    @FXML
+    private void removeLanguage(ActionEvent event) throws Exception {
+        LanguageDTO selectedLanguage = languagesTableView.getSelectionModel().getSelectedItem();
+        if(selectedLanguage == null) {
+            //error alert
+            System.out.println("Nej");
+            return;
+        }
         
+        if(guide.removeLanguage(selectedLanguage)) {
+            languages.remove(selectedLanguage);
+            potentialLanguages.add(selectedLanguage);
+        } else {
+            //TODO alert
+        }
+    }
+    
+    @FXML
+    private void addShow(ActionEvent event) throws Exception {
+        ShowDTO selectedShow = showCombo.getSelectionModel().getSelectedItem();
+        if(selectedShow == null) {
+            //error alert
+            System.out.println("Nej");
+            return;
+        }
         
+        if(guide.addShow(selectedShow)) {
+            shows.add(selectedShow);
+            potentialShows.remove(selectedShow); 
+        } else {
+            //TODO alert nånting
+        }    
+    }
+    
+    @FXML
+    private void removeShow(ActionEvent event) throws Exception {
+        ShowDTO selectedShow = showsTableView.getSelectionModel().getSelectedItem();
+        if(selectedShow == null) {
+            //error alert
+            System.out.println("Nej");
+            return;
+        }
         
+        if(guide.removeShow(selectedShow)) {
+            shows.remove(selectedShow);
+            potentialShows.add(selectedShow);
+        } else {
+            //TODO alert
+        }
     }
 
     @Override
