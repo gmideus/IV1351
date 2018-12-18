@@ -127,49 +127,65 @@ public class DBHandler {
         return result;
     }
 
-    public void addGuideLanguage(GuideDTO g, LanguageDTO l) throws Exception{
+    public boolean addGuideLanguage(GuideDTO g, LanguageDTO l) throws Exception{
         Connection con = db.getDBConnection();
         String query = "insert into språkkunskap (guide, språk) values (?, ?)";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, g.getPersonnr());
         stmt.setString(2, l.getLanguage());
-        stmt.executeUpdate();
+        int res = stmt.executeUpdate();
         stmt.close();
         con.commit();
+        if (res == 1)
+            return true;
+        else
+            return false;
     }
 
 
-    public void addGuideShow(GuideDTO g, ShowDTO s) throws Exception{
+    public boolean addGuideShow(GuideDTO g, ShowDTO s) throws Exception{
         Connection con = db.getDBConnection();
         String query = "insert into utställningskompetens (guide, utställning) values (?, ?)";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, g.getPersonnr());
         stmt.setInt(2, s.getID());
-        stmt.executeUpdate();
+        int res = stmt.executeUpdate();
         stmt.close();
         con.commit();
+        if (res == 1)
+            return true;
+        else
+            return false;
     }
 
-    public void removeGuideLanguage(GuideDTO g, LanguageDTO l) throws Exception{
+    public boolean removeGuideLanguage(GuideDTO g, LanguageDTO l) throws Exception{
         Connection con = db.getDBConnection();
         String query = "delete from språkkunskap where guide = ? and språk= ?";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, g.getPersonnr());
         stmt.setString(2, l.getLanguage());
-        stmt.executeUpdate();
+        int res = stmt.executeUpdate();
         stmt.close();
         con.commit();
+        if (res == 1)
+            return true;
+        else
+            return false;
     }
 
-    public void removeGuideShow(GuideDTO g, ShowDTO s) throws Exception{
+    public boolean removeGuideShow(GuideDTO g, ShowDTO s) throws Exception{
         Connection con = db.getDBConnection();
         String query = "delete from utställningskompetens where guide = ? and utställning = ?";
         PreparedStatement stmt = con.prepareStatement(query);
         stmt.setString(1, g.getPersonnr());
         stmt.setInt(2, s.getID());
-        stmt.executeUpdate();
+        int res = stmt.executeUpdate();
         stmt.close();
         con.commit();
+        if (res == 1)
+            return true;
+        else
+            return false;
     }
 
 }

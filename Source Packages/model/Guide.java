@@ -23,14 +23,24 @@ public class Guide {
     
     
     
-    public void addLanguage(LanguageDTO l) throws Exception{
+    public boolean addLanguage(LanguageDTO l) throws Exception{
         DBHandler handler = DBHandler.getDbhandler();
-        handler.addGuideLanguage(this.guideDTO, l);
+        return handler.addGuideLanguage(this.guideDTO, l);
     }
     
-    public void addShow(ShowDTO s) throws Exception{
+    public boolean addShow(ShowDTO s) throws Exception{
         DBHandler handler = DBHandler.getDbhandler();
-        handler.addGuideShow(this.guideDTO, s);
+        return handler.addGuideShow(this.guideDTO, s);
+    }
+
+    public boolean removeLanguage(LanguageDTO l) throws Exception{
+        DBHandler handler = DBHandler.getDbhandler();
+        return handler.removeGuideLanguage(this.guideDTO, l);
+    }
+
+    public boolean removeShow(ShowDTO s) throws Exception{
+        DBHandler handler = DBHandler.getDbhandler();
+        return handler.removeGuideShow(this.guideDTO, s);
     }
     
     public List<LanguageDTO> getLanguages() throws Exception{
