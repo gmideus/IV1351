@@ -9,10 +9,10 @@
       <TableView fx:id="tableView" onMouseClicked="#selectGuide" prefHeight="450.0" prefWidth="800.0">
         <columns>
           <TableColumn fx:id="personnrColumn" prefWidth="160.0" text="Personnr" />
-          <TableColumn fx:id="fNamnColumn" prefWidth="160.0" text="Förnamn" />
-            <TableColumn fx:id="eNamnColumn" prefWidth="160.0" text="Efternamn" />
-            <TableColumn fx:id="telefonnrColumn" prefWidth="160.0" text="Telefonnr" />
-            <TableColumn fx:id="epostColumn" prefWidth="160.0" text="Epost" />
+          <TableColumn fx:id="fNamnColumn" prefWidth="146.4000244140625" text="Förnamn" />
+            <TableColumn fx:id="eNamnColumn" prefWidth="153.5999755859375" text="Efternamn" />
+            <TableColumn fx:id="telefonnrColumn" prefWidth="139.20001220703125" text="Telefonnr" />
+            <TableColumn fx:id="epostColumn" prefWidth="200.79998779296875" text="Epost" />
         </columns>
       </TableView>
    </children>

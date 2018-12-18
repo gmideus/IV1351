@@ -29,16 +29,12 @@ import util.AlertMaker;
 public class GuideController implements Initializable{
     private Guide guide;
     private ObservableList<LanguageDTO> languages;
-    private ObservableList<ShowDTO> showExperties;
+    private ObservableList<ShowDTO> shows;
 
     @FXML
     private ComboBox<LanguageDTO> languageCombo;
     @FXML
     private ComboBox<ShowDTO> showCombo;
-
-
-
-
 
     @FXML
     private AnchorPane anchorPane;
@@ -46,12 +42,16 @@ public class GuideController implements Initializable{
     @FXML
     private TableView<LanguageDTO> languagesTableView;
     @FXML
-    private TableView<ShowDTO> showExpertiesTableView;
+    private TableView<ShowDTO> showsTableView;
 
     @FXML
     private TableColumn<LanguageDTO, String> languageColumn;
     @FXML
     private TableColumn<ShowDTO, String> showColumn;
+    @FXML
+    private TableColumn<ShowDTO, String> startDateColumn;
+    @FXML
+    private TableColumn<ShowDTO, String> endDateColumn;
 
     @FXML
     private Label fNamn;
@@ -81,15 +81,16 @@ public class GuideController implements Initializable{
 
     @FXML
     private void addLanguage(ActionEvent event) {
-
+        
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         languageColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
         showColumn.setCellValueFactory(new PropertyValueFactory<>("showName"));
+        startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
         languagesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
     }
 
     void setSelectedGuide(Guide guide) throws Exception{
@@ -101,21 +102,20 @@ public class GuideController implements Initializable{
         telefonnr.setText(guideDTO.getTelefonnr());
         epost.setText(guideDTO.getEpost());
         setLanguages();
-        setShowExperties();
-        languagesTableView.setItems(this.languages);
-        showExpertiesTableView.setItems(this.showExperties);
-        this.languageCombo.setItems(this.languages); //REMOVE
-
+        setShows();
     }
 
     private void setLanguages() throws Exception{
         List<LanguageDTO> languages = guide.getLanguages();
         this.languages = FXCollections.observableArrayList(languages);
+        languagesTableView.setItems(this.languages);
     }
 
-    private void setShowExperties() throws Exception{
+
+    private void setShows() throws Exception{
         List<ShowDTO> showExperties = guide.getShows();
-        this.showExperties = FXCollections.observableArrayList(showExperties);
+        this.shows = FXCollections.observableArrayList(showExperties);
+        showsTableView.setItems(this.shows);
     }
 
 

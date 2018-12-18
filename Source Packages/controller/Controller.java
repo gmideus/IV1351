@@ -25,7 +25,6 @@ public class Controller {
     }
     
     public Guide getGuide(GuideDTO guideDTO)throws Exception {
-
         Guide guide = new Guide(guideDTO);
         return guide;
     }
