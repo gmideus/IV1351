@@ -19,7 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -178,7 +177,6 @@ public class GuideController implements Initializable {
         showColumn.setCellValueFactory(new PropertyValueFactory<>("showName"));
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
-        languagesTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     void setSelectedGuide(Guide guide) {
