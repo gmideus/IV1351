@@ -7,216 +7,290 @@ import dto.ShowDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * This class holds and executes all the queries used by this application.
+ *
+ */
 public class DBHandler {
 
     private static final DBHandler DBHANDLER = new DBHandler();
     private DBAccess db = DBAccess.getDBAccess();
 
-
-    public static DBHandler getDbhandler(){
+    /**
+     * @return the instance of this class.
+     */
+    public static DBHandler getDbhandler() {
         return DBHANDLER;
     }
 
-    public static void main(String[] args) throws Exception{
-        DBHandler handler = getDbhandler();
-        handler.db.connect();
-        /*for(GuideDTO g: handler.getGuides()){
-            System.out.println(g.getFnamn() + " " + g.getEnamn());
-        }
-        GuideDTO g = new GuideDTO("hej", "du", "9510221344", "", "");
-        handler.addShowExperties(g, new ShowDTO("The Opening", 1));
-        for(LanguageDTO l : handler.getLanguages(g)){
-            System.out.println(l.getLanguage());
-        }
-        for(ShowDTO s : handler.getShowExperties(new GuideDTO("hej", "du", "9510221344", "", ""))){
-            System.out.println(s.getShowName());
-        }
-        handler.db.getDBConnection().close();
-        */
-    }
-
-    public ArrayList<GuideDTO> getGuides() throws Exception{
+    /**
+     * Executes a query to the database to get all of the guides.
+     * 
+     * @return an <ArrayList> of {@link GuideDTO}.
+     * @throws SQLException if the query to the database fails.
+     */
+    public ArrayList<GuideDTO> getGuides() throws SQLException {
         Connection con = db.getDBConnection();
         String query = "SELECT * FROM guide";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         ArrayList<GuideDTO> result = new ArrayList<>();
-        while(rs.next()){
-            result.add(new GuideDTO(rs.getString("fnamn"), rs.getString("enamn"), rs.getString("personnr"), rs.getString("telefonnr"), rs.getString("epost")));
+        while (rs.next()) {
+            result.add(new GuideDTO(rs.getString("fnamn"), rs.getString("enamn"), rs.getString("personnr"),
+                    rs.getString("telefonnr"), rs.getString("epost")));
         }
         return result;
     }
 
-    public ArrayList<LanguageDTO> getLanguages()throws Exception{
+    /**
+     * Executes a query to the database to get all of the languages.
+     * 
+     * @return an <ArrayList> of {@link LanguageDTO}.
+     * @throws SQLException if the query to the database fails.
+     */
+    public ArrayList<LanguageDTO> getLanguages() throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "Select * from språk";
+        String query = "SELECT * FROM språk";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         ArrayList<LanguageDTO> result = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             result.add(new LanguageDTO(rs.getString("namn")));
         }
         return result;
     }
 
-    public ArrayList<ShowDTO> getShows()throws Exception{
+    /**
+     * Executes a query to the database to get all of the shows.
+     * 
+     * @return an <ArrayList> of {@link ShowDTO}.
+     * @throws SQLException if the query to the database fails.
+     */
+    public ArrayList<ShowDTO> getShows() throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "Select * from utställning";
+        String query = "SELECT * FROM utställning";
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         ArrayList<ShowDTO> result = new ArrayList<>();
-        while(rs.next()){
-            result.add(new ShowDTO(rs.getString("namn"), rs.getInt("id"), rs.getString("startdatum"), rs.getString("slutdatum")));
+        while (rs.next()) {
+            result.add(new ShowDTO(rs.getString("namn"), rs.getInt("id"), rs.getString("startdatum"),
+                    rs.getString("slutdatum")));
         }
         return result;
     }
 
-
-    public ArrayList<LanguageDTO> getGuideLanguages(GuideDTO g)throws Exception{
+    /**
+     * Executes a query to the database to get all of the languages known by the
+     * given guide.
+     * 
+     * @param guide The given guide.
+     * @return an <ArrayList> of {@link LanguageDTO}.
+     * @throws SQLException if the query to the database fails.
+     */
+    public ArrayList<LanguageDTO> getGuideLanguages(GuideDTO guide) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "Select språk from språkkunskap where guide = ?";
+        String query = "SELECT språk FROM språkkunskap WHERE guide = ?";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
+        stmt.setString(1, guide.getPersonnr());
         ResultSet rs = stmt.executeQuery();
         ArrayList<LanguageDTO> result = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             result.add(new LanguageDTO(rs.getString("språk")));
         }
         return result;
     }
 
-    public ArrayList<LanguageDTO> getPotentialLanguages(GuideDTO g)throws Exception{
+    /**
+     * Executes a query to the database to get all of the languages that are not
+     * known by the given guide.
+     * 
+     * @param guide The given guide.
+     * @return an <ArrayList> of {@link LanguageDTO}.
+     * @throws SQLException if the query to the database fails.
+     */
+    public ArrayList<LanguageDTO> getPotentialLanguages(GuideDTO guide) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "Select namn from språk where namn not in (select språk from språkkunskap where guide = ?)";
+        String query = "SELECT namn FROM språk WHERE namn NOT IN (SELECT språk FROM språkkunskap WHERE guide = ?)";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
+        stmt.setString(1, guide.getPersonnr());
         ResultSet rs = stmt.executeQuery();
         ArrayList<LanguageDTO> result = new ArrayList<>();
-        while(rs.next()){
+        while (rs.next()) {
             result.add(new LanguageDTO(rs.getString("namn")));
         }
         return result;
     }
 
-    public ArrayList<ShowDTO> getGuideShows(GuideDTO g)throws Exception{
+    /**
+     * Executes a query to the database to get all of the shows known by the given
+     * guide.
+     * 
+     * @param guide The given guide.
+     * @return an <ArrayList> of {@link ShowDTO}.
+     * @throws SQLException if the query to the database fails.
+     */
+    public ArrayList<ShowDTO> getGuideShows(GuideDTO guide) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "select namn, id, startdatum, slutdatum from utställning where id in (select utställning from utställningskompetens where guide = ?);";
+        String query = "SELECT namn, id, startdatum, slutdatum FROM utställning WHERE id IN (SELECT utställning FROM utställningskompetens WHERE guide = ?);";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
+        stmt.setString(1, guide.getPersonnr());
         ResultSet rs = stmt.executeQuery();
         ArrayList<ShowDTO> result = new ArrayList<>();
-        while(rs.next()){
-            result.add(new ShowDTO(rs.getString("namn"), rs.getInt("id"), rs.getString("startdatum"), rs.getString("slutdatum")));
+        while (rs.next()) {
+            result.add(new ShowDTO(rs.getString("namn"), rs.getInt("id"), rs.getString("startdatum"),
+                    rs.getString("slutdatum")));
         }
         return result;
     }
 
-    public ArrayList<ShowDTO> getPotentialShows(GuideDTO g)throws Exception{
+    /**
+     * Executes a query to the database to get all of the shows that are not known
+     * by the given guide.
+     * 
+     * @param guide The given guide.
+     * @return an <ArrayList> of {@link ShowDTO}.
+     * @throws SQLException if the query to the database fails.
+     */
+    public ArrayList<ShowDTO> getPotentialShows(GuideDTO guide) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "select namn, id, startdatum, slutdatum from utställning where id not in (select utställning from utställningskompetens where guide = ?);";
+        String query = "SELECT namn, id, startdatum, slutdatum FROM utställning WHERE id NOT IN (SELECT utställning FROM utställningskompetens WHERE guide = ?);";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
+        stmt.setString(1, guide.getPersonnr());
         ResultSet rs = stmt.executeQuery();
         ArrayList<ShowDTO> result = new ArrayList<>();
-        while(rs.next()){
-            result.add(new ShowDTO(rs.getString("namn"), rs.getInt("id"), rs.getString("startdatum"), rs.getString("slutdatum")));
+        while (rs.next()) {
+            result.add(new ShowDTO(rs.getString("namn"), rs.getInt("id"), rs.getString("startdatum"),
+                    rs.getString("slutdatum")));
         }
         return result;
     }
 
-    public boolean addGuideLanguage(GuideDTO g, LanguageDTO l) throws Exception{
+    /**
+     * Executes a query to the database to add the given language to the given
+     * guide's language-knowledge table.
+     * 
+     * @param guide The given guide.
+     * @param lang  The given language.
+     * @return the number of rows affected, which can be 1 or 0.
+     * @throws SQLException if the query to the database fails.
+     */
+    public int addGuideLanguage(GuideDTO guide, LanguageDTO lang) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "insert into språkkunskap (guide, språk) values (?, ?)";
+        String query = "INSERT INTO språkkunskap (guide, språk) VALUES (?, ?)";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
-        stmt.setString(2, l.getLanguage());
+        stmt.setString(1, guide.getPersonnr());
+        stmt.setString(2, lang.getLanguage());
         int res = stmt.executeUpdate();
         stmt.close();
         con.commit();
-        if (res == 1)
-            return true;
-        else
-            return false;
+        return res;
     }
 
-
-    public boolean addGuideShow(GuideDTO g, ShowDTO s) throws Exception{
+    /**
+     * Executes a query to the database to add the given show to the given guide's
+     * show-knowledge table.
+     * 
+     * @param guide The given guide.
+     * @param show  The given show.
+     * @return the number of rows affected, which can be 1 or 0.
+     * @throws SQLException if the query to the database fails.
+     */
+    public int addGuideShow(GuideDTO guide, ShowDTO show) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "insert into utställningskompetens (guide, utställning) values (?, ?)";
+        String query = "INSERT INTO utställningskompetens (guide, utställning) VALUES (?, ?)";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
-        stmt.setInt(2, s.getID());
+        stmt.setString(1, guide.getPersonnr());
+        stmt.setInt(2, show.getID());
         int res = stmt.executeUpdate();
         stmt.close();
         con.commit();
-        if (res == 1)
-            return true;
-        else
-            return false;
+        return res;
     }
 
-    public boolean removeGuideLanguage(GuideDTO g, LanguageDTO l) throws Exception{
+    /**
+     * Executes a query to the database to remove the given language from the given
+     * guide's language-knowledge table.
+     * 
+     * @param guide The given guide.
+     * @param lang  The given language to be removed.
+     * @return the number of rows affected, which can be 1 or 0.
+     * @throws SQLException if the query to the database fails.
+     */
+    public int removeGuideLanguage(GuideDTO guide, LanguageDTO lang) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "delete from språkkunskap where guide = ? and språk= ?";
+        String query = "DELETE FROM språkkunskap WHERE guide = ? AND språk= ?";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
-        stmt.setString(2, l.getLanguage());
+        stmt.setString(1, guide.getPersonnr());
+        stmt.setString(2, lang.getLanguage());
         int res = stmt.executeUpdate();
         stmt.close();
         con.commit();
-        if (res == 1)
-            return true;
-        else
-            return false;
+        return res;
     }
 
-    public boolean languageRemovable(GuideDTO g, LanguageDTO l) throws Exception{
+    /**
+     * Executes a query to the database to get the count of rows of the tours hold
+     * by the given guide in the given language.
+     * 
+     * @param guide The given guide.
+     * @param lang The given language.
+     * @return the number of rows in the table returned by the query.
+     * @throws SQLException if the query to the database fails.
+     */
+    public int getTourCountByLanguage(GuideDTO guide, LanguageDTO lang) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "select count(*) as Turer from tur where guide = ? and språk = ?";
+        String query = "SELECT COUNT(*) AS Turer FROM tur WHERE guide = ? AND språk = ?";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
-        stmt.setString(2, l.getLanguage());
+        stmt.setString(1, guide.getPersonnr());
+        stmt.setString(2, lang.getLanguage());
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        if(rs.getInt("Turer") == 0)
-            return true;
-        else
-            return false;
-
+        return rs.getInt("Turer");
     }
 
-    public boolean removeGuideShow(GuideDTO g, ShowDTO s) throws Exception{
+    /**
+     * Executes a query to the database to remove the given show from the given
+     * guide's show-knowledge table.
+     * 
+     * @param guide The given guide.
+     * @param show  The given show to be removed.
+     * @return the number of rows affected, which can be 1 or 0.
+     * @throws SQLException if the query to the database fails.
+     */
+    public int removeGuideShow(GuideDTO guide, ShowDTO show) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "delete from utställningskompetens where guide = ? and utställning = ?";
+        String query = "DELETE FROM utställningskompetens WHERE guide = ? AND utställning = ?";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
-        stmt.setInt(2, s.getID());
+        stmt.setString(1, guide.getPersonnr());
+        stmt.setInt(2, show.getID());
         int res = stmt.executeUpdate();
         stmt.close();
         con.commit();
-        if (res == 1)
-            return true;
-        else
-            return false;
+        return res;
     }
 
-
-    public boolean showRemovable(GuideDTO g, ShowDTO s) throws Exception{
+    /**
+     * Executes a query to the database to get the count of rows of the tours hold
+     * by the given guide in the given show.
+     * 
+     * @param guide The given guide.
+     * @param show The given show.
+     * @return the number of rows in the table returned by the query.
+     * @throws SQLException if the query to the database fails.
+     */
+    public int getTourCountByShow(GuideDTO guide, ShowDTO show) throws SQLException {
         Connection con = db.getDBConnection();
-        String query = "select count(*) as Turer from tur where guide = ? and utställning = ?";
+        String query = "SELECT COUNT(*) AS Turer FROM tur WHERE guide = ? AND utställning = ?";
         PreparedStatement stmt = con.prepareStatement(query);
-        stmt.setString(1, g.getPersonnr());
-        stmt.setInt(2, s.getID());
+        stmt.setString(1, guide.getPersonnr());
+        stmt.setInt(2, show.getID());
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        if(rs.getInt("Turer") == 0)
-            return true;
-        else
-            return false;
-
+        return rs.getInt("Turer");
     }
 
 }
